@@ -19,9 +19,25 @@ include(CheckIncludeFiles)
 include(GNUInstallDirs)
 include(GetGitRevisionDescription)
 
-include_directories(/opt/homebrew/include)
-include_directories(/opt/homebrew/include/SDL2)
-link_directories(/opt/homebrew/lib)
+if(APPLE)
+    message(STATUS "Building on macOS platform")
+    set(IS_MACOS TRUE)
+else()
+    set(IS_MACOS FALSE)
+endif()
+
+set(HOMEBREW_PATH "/opt/homebrew")
+
+if(IS_MACOS AND EXISTS ${HOMEBREW_PATH})
+    # USE HOMEBREW PATHS
+    include_directories(/opt/homebrew/include)
+    include_directories(/opt/homebrew/include/SDL2)
+    link_directories(/opt/homebrew/lib)
+else()
+    # USE MACPORTS PATHS
+    include_directories(/opt/local/include)
+    link_directories(/opt/local/lib)
+endif()
 
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
