@@ -28,15 +28,17 @@ endif()
 
 set(HOMEBREW_PATH "/opt/homebrew")
 
-if(IS_MACOS AND EXISTS ${HOMEBREW_PATH})
-    # USE HOMEBREW PATHS
-    include_directories(/opt/homebrew/include)
-    include_directories(/opt/homebrew/include/SDL2)
-    link_directories(/opt/homebrew/lib)
-else()
-    # USE MACPORTS PATHS
-    include_directories(/opt/local/include)
-    link_directories(/opt/local/lib)
+if(IS_MACOS)
+    if( EXISTS ${HOMEBREW_PATH})
+        # USE HOMEBREW PATHS
+        include_directories(/opt/homebrew/include)
+        include_directories(/opt/homebrew/include/SDL2)
+        link_directories(/opt/homebrew/lib)
+    else()
+        # USE MACPORTS PATHS
+        include_directories(/opt/local/include)
+        link_directories(/opt/local/lib)
+    endif()
 endif()
 
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard")
