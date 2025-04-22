@@ -21,14 +21,7 @@ include(GetGitRevisionDescription)
 
 if(APPLE)
     message(STATUS "Building on macOS platform")
-    set(IS_MACOS TRUE)
-else()
-    set(IS_MACOS FALSE)
-endif()
-
-set(HOMEBREW_PATH "/opt/homebrew")
-
-if(IS_MACOS)
+    set(HOMEBREW_PATH "/opt/homebrew")
     if( EXISTS ${HOMEBREW_PATH})
         # USE HOMEBREW PATHS
         include_directories(/opt/homebrew/include)
